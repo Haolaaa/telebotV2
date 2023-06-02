@@ -4,7 +4,9 @@ import (
 	"telebotV2/canal"
 	"telebotV2/global"
 	"telebotV2/kafka"
+	"telebotV2/services"
 
+	"github.com/robfig/cron/v3"
 	"go.uber.org/zap"
 )
 
@@ -16,6 +18,13 @@ func RunServer() {
 	if err != nil {
 		global.LOG.Error("run canal error: ", zap.Error(err))
 	}
+
+	cron := cron.New(cron.WithSeconds())
+	_, err = cron.AddFunc("0 0 */4 * * *", services.AllVideosTask)
+	if err != nil {
+		global.LOG.Error("add cron task error: ", zap.Error(err))
+	}
+	cron.Start()
 
 	global.LOG.Info("server run success")
 }

@@ -7,6 +7,7 @@ require (
 	github.com/go-mysql-org/go-mysql v1.7.0
 	github.com/lestrrat-go/file-rotatelogs v2.4.0+incompatible
 	github.com/mitchellh/mapstructure v1.5.0
+	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/kafka-go v0.4.40
 	github.com/spf13/viper v1.16.0
 	go.uber.org/zap v1.24.0
