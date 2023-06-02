@@ -20,6 +20,7 @@ func main() {
 		defer db.Close()
 	}
 
+	global.LOG.Info("running server...")
 	core.RunServer()
 
 	select {}
