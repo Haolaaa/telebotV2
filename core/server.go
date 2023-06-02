@@ -14,13 +14,15 @@ func RunServer() {
 	kafka := kafka.NewKafkaService()
 	global.Writer = kafka.Writer
 
-	err := canal.RunCanal(true)
-	if err != nil {
-		global.LOG.Error("run canal error: ", zap.Error(err))
-	}
+	go func() {
+		err := canal.RunCanal(true)
+		if err != nil {
+			global.LOG.Error("run canal error: ", zap.Error(err))
+		}
+	}()
 
 	cron := cron.New(cron.WithSeconds())
-	_, err = cron.AddFunc("0 0 */4 * * *", services.AllVideosTask)
+	_, err := cron.AddFunc("0 0 */4 * * *", services.AllVideosTask)
 	if err != nil {
 		global.LOG.Error("add cron task error: ", zap.Error(err))
 	}
