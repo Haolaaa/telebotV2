@@ -24,6 +24,7 @@ func RunServer() {
 	if err != nil {
 		global.LOG.Error("add cron task error: ", zap.Error(err))
 	}
+	zap.L().Log(zap.InfoLevel, "add cron task success")
 	cron.Start()
 
 	global.LOG.Info("server run success")
