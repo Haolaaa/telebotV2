@@ -58,18 +58,31 @@ func TableEventDispatcher(event *canal.RowsEvent, row map[string]interface{}) {
 				}
 
 				playUrl := utils.FormatM3u8Suffix(video.PlayUrl, siteVideoUrls.SiteKey)
+				downUrl := utils.FormatUrl(video.DownUrl)
+				coverUrl := utils.FormatUrl(video.Cover)
 
 				message := model.VideoReleaseMessage{
 					PublishedSiteName: siteVideoUrls.SiteName,
 					VideoId:           int(video.ID),
 					Title:             video.Title,
-					PlayUrl:           playUrl,
-					DirectPlayUrl:     siteVideoUrls.DirectPlayUrl + playUrl,
-					CFPlayUrl:         siteVideoUrls.CFPlayUrl + playUrl,
-					CDNPlayUrl:        siteVideoUrls.CDNPlayUrl + playUrl,
 					CreatedAt:         video.CreatedAt,
 				}
 
+				if siteVideoUrls.CDNPlayUrl != "" {
+					message.CDNPlayUrl = siteVideoUrls.CDNPlayUrl + playUrl
+				}
+				if siteVideoUrls.CFPlayUrl != "" {
+					message.CFPlayUrl = siteVideoUrls.CFPlayUrl + playUrl
+				}
+				if siteVideoUrls.DirectPlayUrl != "" {
+					message.DirectPlayUrl = siteVideoUrls.DirectPlayUrl + playUrl
+				}
+				if downUrl != "" {
+					message.DownUrl = downUrl
+				}
+				if coverUrl != "" {
+					message.CoverUrl = coverUrl
+				}
 				messageBytes, err := json.Marshal(message)
 				if err != nil {
 					global.LOG.Error("marshal message error: ", zap.Error(err))

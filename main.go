@@ -16,7 +16,7 @@ func main() {
 	global.DB = initialize.Gorm()
 	if global.DB != nil {
 		db, _ := global.DB.DB()
-		initialize.RegisterTables()
+		// initialize.RegisterTables()
 		defer db.Close()
 	}
 
