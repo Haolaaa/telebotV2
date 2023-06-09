@@ -78,10 +78,10 @@ func TableEventDispatcher(event *canal.RowsEvent, row map[string]interface{}) {
 					message.DirectPlayUrl = siteVideoUrls.DirectPlayUrl + playUrl
 				}
 				if downUrl != "" {
-					message.DownUrl = downUrl
+					message.DownUrl = siteVideoUrls.DownloadUrl + downUrl
 				}
 				if coverUrl != "" {
-					message.CoverUrl = coverUrl
+					message.CoverUrl = siteVideoUrls.VideoCover + coverUrl
 				}
 				messageBytes, err := json.Marshal(message)
 				if err != nil {
