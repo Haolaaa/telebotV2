@@ -74,6 +74,8 @@ func filterReleasedVideo(videos []model.Video) (filteredVideos []model.VideoRele
 					DirectPlayUrl:     publishedSite.DirectPlayUrl + playUrl,
 					CFPlayUrl:         publishedSite.CFPlayUrl + playUrl,
 					CDNPlayUrl:        publishedSite.CDNPlayUrl + playUrl,
+					DownUrl:           publishedSite.DownloadUrl + video.DownUrl,
+					CoverUrl:          publishedSite.VideoCover + video.Cover,
 					CreatedAt:         video.CreatedAt,
 				})
 			}
